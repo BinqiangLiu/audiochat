@@ -14,6 +14,13 @@ from gtts import gTTS
 # Load environment variables
 from dotenv import load_dotenv
 import os
+
+st.set_page_config(
+    page_title="语音AI随身聊 - 您的随身智能语音助手",
+    page_icon=":rocket:",  # You can use Emoji as the page icon
+    layout="centered",  # You can set the layout to "wide" or "centered"
+)
+
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
