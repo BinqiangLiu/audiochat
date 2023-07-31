@@ -52,7 +52,7 @@ with open("audiorecorded.mp3", "rb") as sst_audio_file:
         model = "whisper-1",
         response_format="text"        
     )    
-st.write("---")    
+#st.write("---")    
 # Print the transcript of audio input
 #st.write("您的提问（语音转文字）：\n\n",  transcript)
 print("Transcript of your questions:",  transcript)
