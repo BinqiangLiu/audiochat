@@ -1,4 +1,6 @@
-#使用这个录音模块：https://pypi.org/project/audio-recorder-streamlit/
+#audio recorder function: https://pypi.org/project/audio-recorder-streamlit/
+#python -m pip install --upgrade pip; pip install -r requirements.txt
+#python version: 3.10.11
 import streamlit as st
 import subprocess
 import openai
