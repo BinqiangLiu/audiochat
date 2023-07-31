@@ -8,7 +8,6 @@ import numpy as np
 from audio_recorder_streamlit import audio_recorder
 import numpy as np
 import ffmpeg
-#import av
 from langdetect import detect
 from gtts import gTTS
 
@@ -21,7 +20,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 # Global variable to hold the chat history, initialize with system role
 conversation = [{"role": "system", "content": "You are a helpful assistant."}]
 
-st.title("语音AI随声聊")
+st.title("语音AI随身聊")
 st.write("---")
 st.header("请先用语音向AI智能助手提出您的问题！")
 st.write("点击下方按钮输入语音（5秒无输入则自动停止）")
