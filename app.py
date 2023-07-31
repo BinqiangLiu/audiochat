@@ -79,7 +79,7 @@ print(system_message)
 #st.write("ChatGPT的反馈/文字形式（response的完整复杂格式内容）\n\n", response)
 
 #st.write("---")
-st.write("ChatGPT的反馈/文字形式（response主体内容system_message：\n\n", system_message) 
+#st.write("ChatGPT的反馈/文字形式（response主体内容system_message）：\n\n", system_message) 
 
 st.write("---")
 # Display the chat history
