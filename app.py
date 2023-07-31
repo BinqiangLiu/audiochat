@@ -29,7 +29,7 @@ conversation = [{"role": "system", "content": "You are a helpful assistant."}]
 
 st.title("语音AI随身聊")
 st.write("---")
-st.header("请先用语音向AI智能助手提出您的问题！")
+st.header("请用语音向AI智能助手提问！")
 st.write("点击下方按钮输入语音（5秒无输入则自动停止）")
 audio = audio_recorder(text="红色图标录音中，黑色停止", pause_threshold=5)
 st.write("---")
