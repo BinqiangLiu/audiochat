@@ -8,7 +8,7 @@ import numpy as np
 from audio_recorder_streamlit import audio_recorder
 import numpy as np
 import ffmpeg
-import av
+#import av
 from langdetect import detect
 from gtts import gTTS
 
@@ -21,9 +21,9 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 # Global variable to hold the chat history, initialize with system role
 conversation = [{"role": "system", "content": "You are a helpful assistant."}]
 
-st.title("by Joohan Audio to Chat App")
+st.title("语音AI随声聊")
 st.write("---")
-st.header("请先向AI提出您的问题！")
+st.header("请先用语音向AI智能助手提出您的问题！")
 st.write("点击下方按钮输入语音（5秒无输入则自动停止）")
 audio = audio_recorder(text="红色图标录音中，黑色停止", pause_threshold=5)
 st.write("---")
@@ -54,7 +54,7 @@ with open("audiorecorded.mp3", "rb") as sst_audio_file:
     )    
 st.write("---")    
 # Print the transcript of audio input
-st.write("你的语音提问（转文字）：\n\n",  transcript)
+#st.write("您的提问（语音转文字）：\n\n",  transcript)
 print("Transcript of your questions:",  transcript)
 #因为在openai.Audio.transcribe中使用了response_format="text"，所以直接使用transcript，而不需要使用transcript["text"]
 
@@ -72,23 +72,23 @@ system_message = response["choices"][0]["message"]["content"]
 #   为了保持记忆，使用了append ChatGPT system_message (assistant role) back to conversation
 conversation.append({"role": "assistant", "content": system_message})
 
-st.write("---")
+#st.write("---")
 #将ChatGPT的反馈response输出（复杂格式形式）
 print(response)    
 print(system_message)    
-st.write("ChatGPT的反馈/文字形式（response的完整复杂格式内容）\n\n", response)
+#st.write("ChatGPT的反馈/文字形式（response的完整复杂格式内容）\n\n", response)
 
-st.write("---")
+#st.write("---")
 st.write("ChatGPT的反馈/文字形式（response主体内容system_message：\n\n", system_message) 
 
 st.write("---")
 # Display the chat history
-st.header("你和AI的问答文字记录")
+st.header("您和AI智能助手的问答记录(文字)")
 
-st.write("你的提问（语音转文字）:\n\n " + transcript)
-#    st.write("你的提问（语音转文字）: " + transcript["text"])
+st.write("您的提问（语音转文字）:\n\n " + transcript)
+#    st.write("您的提问（语音转文字）: " + transcript["text"])
 st.write("---")
-st.write("【语音播放AI的回答】")   
+st.write("【语音播放AI智能助手的回答】")   
 
 language = detect(system_message)
 
@@ -106,7 +106,7 @@ def text_to_speech(text):
         st.stop()
         
 if system_message is None:
-    st.write("请先向AI提问！")    
+    st.write("请先向AI智能助手提问！")    
     st.stop()
 else: 
 #    st.write("你的提问（AI问答模型中的记录transcript）：\n\n", transcript)
@@ -116,10 +116,10 @@ else:
     ai_output_audio = text_to_speech(system_message)
     audio_file = open("translationresult.mp3", "rb")
     audio_bytes = audio_file.read()
-    st.write("检测到输出语言：", language)
+   # st.write("检测到输出语言：", language)
     print(language)
     st.audio("translationresult.mp3")
-    st.write("---")
-    st.write("ChatGPT的反馈/文字形式（response的完整复杂格式内容）\n\n", response)
+#    st.write("---")
+#    st.write("ChatGPT的反馈/文字形式（response的完整复杂格式内容）\n\n", response)
     st.write("---")
     st.write("ChatGPT的反馈/文字形式（response主体内容system_message：\n\n", system_message)
