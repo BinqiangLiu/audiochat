@@ -146,7 +146,7 @@ if audio_txt_cbox:
        st.write("未检测到语音，请您先录入语音以向AI助手提问。")
 #       st.stop()
    else:
-       st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n\n"+audio_txt_result)        
+       st.write("基于您选择的语音输入语言，识别您的语音输入为：\n\n"+audio_txt_result)        
 
 st.write("---")
 ai_response_cbox = st.checkbox("查看AI助手回复", key="ai_cbox")    
