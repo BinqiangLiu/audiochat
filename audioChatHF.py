@@ -111,9 +111,9 @@ if audio_listen_cbox:
              recognizer.recognize_google(audio_data=audio_file)
              st.audio(audio, format="audio/mpeg") 
              #st.write(type(audio_file))
-#             with st.spinner("Recognizing your audio...Please wait a while to Cheers!", key="audio_txt_spinner"):                  
-             audio_txt_result = recognizer.recognize_google(audio_data=audio_file, language=input_language )
-             st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n\n"+audio_txt_result)
+             with st.spinner("Recognizing your audio...Please wait a while to Cheers!"):                  
+               audio_txt_result = recognizer.recognize_google(audio_data=audio_file, language=input_language )
+               st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n\n"+audio_txt_result)
 #             st.write("---")       
          except Exception as e:
              st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
@@ -129,7 +129,7 @@ ai_response_cbox = st.checkbox("查看AI助手回复", key="ai_cbox")
 if ai_response_cbox:
     user_query = audio_txt_result   
     if user_query !="" and not user_query.strip().isspace() and not user_query == "" and not user_query.strip() == "" and not user_query.isspace():         
-      with st.spinner("AI Thinking...Please wait a while to Cheers!", key="ai_spinner"):   
+      with st.spinner("AI Thinking...Please wait a while to Cheers!"):   
         initial_response=llm_chain.run(user_query)
         temp_ai_response_1=initial_response.partition('<|end|>\n<|user|>\n')[0]
         temp_ai_response_2=temp_ai_response_1.replace('<|end|>\n<|assistant|>\n', '') 
