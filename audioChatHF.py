@@ -77,7 +77,7 @@ def text_to_speech(input_language, output_language, text):
         trans_text = translation.text
         tts = gTTS(trans_text, lang=output_language, slow=False)
 #        trans_txt_tts_file_name = str(uuid.uuid4()) + ".mp3"
-#        tts_file_name = str(uuid.uuid4()) + ".mp3"
+        tts_file_name = str(uuid.uuid4()) + ".mp3"
 #        tts.save("translationresult.mp3")
         tts_audio_file=tts.save(tts_file_name)        
         return trans_text
@@ -187,9 +187,10 @@ if ai_response_audio:
     st.write("请确认您已经向AI助手提问并获得回复。")
   else:
     if output_language==input_language:
-#      tts_file_name = str(uuid.uuid4()) + ".mp3"
+      tts_file_name = str(uuid.uuid4()) + ".mp3"
       tts = gTTS(final_ai_response, lang=output_language, slow=False)
       tts_audio_file = tts.save(tts_file_name)
+#      st.audio(audio, format="audio/mpeg") 
       audio_bytes = tts_audio_file.read()
       st.audio(audio_bytes, format="audio/mpeg")
     else:
