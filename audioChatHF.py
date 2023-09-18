@@ -3,19 +3,15 @@
 #python version: 3.10.11
 #使用Audio record streamlit（https://pypi.org/project/audio-recorder-streamlit/）（https://github.com/Joooohan/audio-recorder-streamlit）录音
 #使用SpeechRecognition 3.10.0（https://pypi.org/project/SpeechRecognition/）将录音转文字
-
-
 import streamlit as st
-import subprocess
-import openai
+#import subprocess
+#import openai
 import numpy as np
 from audio_recorder_streamlit import audio_recorder
 import speech_recognition as sr
-import numpy as np
 import ffmpeg
-from langdetect import detect
+#from langdetect import detect
 from gtts import gTTS
-
 # Load environment variables
 from dotenv import load_dotenv
 import os
@@ -23,7 +19,7 @@ import os
 st.set_page_config(
     page_title="语音AI随身聊 - 您的随身智能语音助手",
     page_icon=":rocket:",  # You can use Emoji as the page icon
-    layout="centered",  # You can set the layout to "wide" or "centered"
+    layout="wide",  # You can set the layout to "wide" or "centered"
 )
 
 load_dotenv()
@@ -36,7 +32,7 @@ st.title("语音AI随身聊")
 st.write("---")
 st.header("请用语音向AI智能助手提问！")
 st.write("点击下方按钮输入语音（5秒无输入则自动停止）")
-audio = audio_recorder(text="红色图标录音中，黑色停止", pause_threshold=5)
+audio = audio_recorder(text="红色图标录音中，\n\n黑色停止", pause_threshold=5)
 st.write("---")
 
 try:
