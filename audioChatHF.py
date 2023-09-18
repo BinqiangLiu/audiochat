@@ -40,6 +40,7 @@ with open(css_file) as f:
 
 audio_txt_result=""
 user_query=""
+final_ai_response=""
 
 HUGGINGFACEHUB_API_TOKEN = os.getenv('HUGGINGFACEHUB_API_TOKEN')
 repo_id = os.environ.get('repo_id')
@@ -58,6 +59,16 @@ Question: {user_question}
 Helpufl AI AI Repsonse:
 """  
 llm_chain = LLMChain(llm=llm, prompt=PromptTemplate.from_template(prompt_template))
+
+def text_to_speech(input_language, output_language, text):
+    if text is None:
+        print("Input empty.")        
+    else:
+        translation = translator.translate(text, src=input_language, dest=output_language)
+        trans_text = translation.text
+        tts = gTTS(trans_text, lang=output_language, slow=False)
+        tts.save("translationresult.mp3")
+        return trans_text
 
 in_lang = st.selectbox(
     "请选择您输入语音的语言",
@@ -83,13 +94,12 @@ elif in_lang == "Korean":
 
 #st.title("语音AI随身聊")
 #st.header("请用语音向AI智能助手提问！")
-st.write("---")
+
 st.write("点击下方按钮输入语音（5秒无输入则自动停止）")
 audio = audio_recorder(text="红色图标录音中，黑色停止", pause_threshold=5)
-
 import uuid
 file_name = str(uuid.uuid4()) + ".mp3"
-
+st.write("---")
 audio_listen_cbox = st.checkbox("收听录制的语音", key="audio_cbox")    
 if audio_listen_cbox:
    if audio!=None:
@@ -146,4 +156,36 @@ if ai_response_cbox:
         st.write(final_ai_response)
     else:        
         st.write("AI助手遇到了错误。请确保您按照选择的语言正确输入了语音！")
-        st.stop()
+#        st.stop()
+
+st.write("---")
+out_lang = st.selectbox(
+    "请选择希望用来听AI回复的语言",
+    ("English", "Chinese", "German", "French", "Japanese", "Korean"),
+)
+if out_lang == "English":
+    output_language = "en"
+elif out_lang == "Chinese":
+    output_language = "zh-CN"
+#elif out_lang == "Chinese Traditional":
+#    output_language = "zh-TW"
+elif out_lang == "German":
+    output_language = "de"
+elif out_lang == "French":
+    output_language = "fr"
+elif out_lang == "Japanese":
+    output_language = "ja"
+elif out_lang == "Korea":
+    output_language = "kr"
+
+st.write("---")
+
+ai_response_audio = st.checkbox("语音播放AI助手回复", key="ai_audio_cbox")   
+if ai_response_audio:
+    if final_ai_response =="" or final_ai_response.strip().isspace() or final_ai_response == "" or final_ai_response.strip() == ""  or final_ai_response.isspace():
+         print("No AI Response Yet.")
+    else:
+        output_text = text_to_speech(input_language, output_language, final_ai_response)
+        audio_file = open("translationresult.mp3", "rb")
+        audio_bytes = audio_file.read()
+        st.audio(audio_bytes, format="audio/mpeg")
