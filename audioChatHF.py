@@ -129,14 +129,14 @@ if audio!=None:
              audio_txt_result = recognizer.recognize_google(audio_data=audio_file, language=input_language )             
          except Exception as e:
              st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
-             st.stop()
+#             st.stop()
 
 if audio_listen_cbox:
     st.audio(audio, format="audio/mpeg") 
 if audio_txt_cbox:    
    if audio is None:
        st.write("未检测到语音，请您先录入语音以向AI助手提问。")
-       st.stop()
+#       st.stop()
    else:
        st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n\n"+audio_txt_result)        
 
