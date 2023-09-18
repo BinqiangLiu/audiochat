@@ -63,7 +63,7 @@ st.audio("audiorecorded.mp3", format="audio/mpeg")
 
 #使用SpeechRecognition将录音转文字
 recognizer = sr.Recognizer()
-audio_file_ = sr.AudioFile("audiorecorded.mp3")
+audio_file = sr.AudioFile("audiorecorded.mp3")
 print(type(audio_file))
 
 with audio_file as source:
