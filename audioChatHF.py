@@ -81,11 +81,15 @@ if audio_listen_cbox:
          audio_file = recognizer.record(source)
        #  audio_file = recognizer.record(source, duration = 5.0)
        #  audio_file = recognizer.record(source, offset = 1.0)
-         recognizer.recognize_google(audio_data=audio_file)         
-         st.write(type(audio_file))
-         result = recognizer.recognize_google(audio_data=audio_file, language=input_language )      
-         st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n"+result)
-         st.write("---")       
+         try:
+             recognizer.recognize_google(audio_data=audio_file)
+             st.write(type(audio_file))
+             result = recognizer.recognize_google(audio_data=audio_file, language=input_language )
+             st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n"+result)
+             st.write("---")       
+         except Exception as e:
+             st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
+             st.stop()    
    else:
         #st.write("No audio recorded. Please record your audio first.")
        st.write("未检测到语音。请您先录入语音以向AI助手提问。")
