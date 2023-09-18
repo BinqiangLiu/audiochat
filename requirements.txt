@@ -7,6 +7,7 @@ python-ffmpeg
 gTTS
 numpy
 audio-recorder-streamlit
+SpeechRecognition
 langdetect
 #av
 #gradio
