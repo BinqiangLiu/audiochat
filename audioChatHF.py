@@ -127,7 +127,7 @@ if audio_listen_cbox:
 
 ai_response_cbox = st.checkbox("查看AI助手回复", key="ai_cbox")    
 if ai_response_cbox:
-  user_query = audio_txt_result   
+    user_query = audio_txt_result   
     if user_query !="" and not user_query.strip().isspace() and not user_query == "" and not user_query.strip() == "" and not user_query.isspace():         
       with st.spinner("AI Thinking...Please wait a while to Cheers!"):   
         initial_response=llm_chain.run(user_query)
