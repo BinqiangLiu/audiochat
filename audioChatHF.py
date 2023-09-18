@@ -10,7 +10,7 @@ import numpy as np
 from audio_recorder_streamlit import audio_recorder
 import speech_recognition as sr
 import ffmpeg
-#from langdetect import detect
+from langdetect import detect
 from gtts import gTTS
 # Load environment variables
 from dotenv import load_dotenv
