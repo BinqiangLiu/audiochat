@@ -83,12 +83,11 @@ if audio_listen_cbox:
          st.write(type(audio_file))
          result = recognizer.recognize_google(audio_data=audio_file, language=input_language )      
          st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n"+result)
-       st.write("---")
-       
-    else:
+         st.write("---")       
+   else:
         #st.write("No audio recorded. Please record your audio first.")
-        st.write("未检测到语音。请您先录入语音以向AI助手提问。")
-        st.stop()  
+       st.write("未检测到语音。请您先录入语音以向AI助手提问。")
+       st.stop()  
 #完美播放录制的音频！
 #st.audio("audiorecorded.mp3", format="audio/mpeg")
 #st.audio(audio_bytes, format="audio/mpeg")
