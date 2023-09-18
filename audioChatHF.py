@@ -42,15 +42,6 @@ audio_file.write(audio)
 audio_file.close()
 st.write("---")
 
-# To save audio to a file:/可以视为是临时文件，用于语音转文本用
-#Open file "audiorecorded.mp3" in binary write mode
-        audio_file = open("audiorecorded.mp3", "wb")
-# 通过write方法，将麦克风录制的音频audio保存到audiorecorded.mp3中
-        audio_file.write(audio)
-# 关闭audiorecorded.mp3
-        audio_file.close()
-
-
 audio_listen_cbox = st.checkbox("收听录制的语音", key="audio_listen_cbox")    
 if audio_listen_cbox:
     if len(audio) > 0:
