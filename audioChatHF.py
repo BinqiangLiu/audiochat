@@ -182,9 +182,24 @@ st.write("---")
 
 ai_response_audio = st.checkbox("语音播放AI助手回复", key="ai_audio_cbox")   
 if ai_response_audio:
-    if final_ai_response =="" or final_ai_response.strip().isspace() or final_ai_response == "" or final_ai_response.strip() == ""  or final_ai_response.isspace():
+  out_lang = st.selectbox("请选择希望用来听AI回复的语言", ("English", "Chinese", "German", "French", "Japanese", "Korean"),)
+  if out_lang == "English":
+    output_language = "en"
+  elif out_lang == "Chinese":
+    output_language = "zh-CN"
+#elif out_lang == "Chinese Traditional":
+#    output_language = "zh-TW"
+  elif out_lang == "German":
+    output_language = "de"
+  elif out_lang == "French":
+    output_language = "fr"
+  elif out_lang == "Japanese":
+    output_language = "ja"
+  elif out_lang == "Korea":
+    output_language = "kr"
+  if final_ai_response =="" or final_ai_response.strip().isspace() or final_ai_response == "" or final_ai_response.strip() == ""  or final_ai_response.isspace():
          print("No AI Response Yet.")
-    else:
+  else:
         output_text = text_to_speech(input_language, output_language, final_ai_response)
         audio_file = open("translationresult.mp3", "rb")
         audio_bytes = audio_file.read()
