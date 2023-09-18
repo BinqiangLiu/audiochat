@@ -1,6 +1,10 @@
 #audio recorder function: https://pypi.org/project/audio-recorder-streamlit/
 #python -m pip install --upgrade pip; pip install -r requirements.txt
 #python version: 3.10.11
+#使用Audio record streamlit（https://pypi.org/project/audio-recorder-streamlit/）（https://github.com/Joooohan/audio-recorder-streamlit）录音
+#使用SpeechRecognition 3.10.0（https://pypi.org/project/SpeechRecognition/）将录音转文字
+
+
 import streamlit as st
 import subprocess
 import openai
