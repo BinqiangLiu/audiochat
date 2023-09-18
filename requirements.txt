@@ -1,5 +1,4 @@
 streamlit
-openai
 python-dotenv
 ffmpeg
 ffmpeg-python
@@ -8,7 +7,10 @@ gTTS
 numpy
 audio-recorder-streamlit
 SpeechRecognition
-langdetect
+huggingface_hub
+langchain
+Requests
+streamlit_chat
 #av
 #gradio
 #pyttsx3
@@ -18,3 +20,5 @@ langdetect
 #soundfile
 #sounddevice
 #googletrans
+#langdetect
+#openai
