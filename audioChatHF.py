@@ -25,7 +25,7 @@ import time
 import glob
 import sys
 from googletrans import Translator
-
+import uuid
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -43,9 +43,12 @@ css_file = "main.css"
 with open(css_file) as f:
     st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 
+file_name = str(uuid.uuid4()) + ".mp3"
 audio_txt_result=""
 user_query=""
 final_ai_response=""
+tts_audio_file=""
+tts_file_name=""
 
 HUGGINGFACEHUB_API_TOKEN = os.getenv('HUGGINGFACEHUB_API_TOKEN')
 repo_id = os.environ.get('repo_id')
@@ -73,7 +76,10 @@ def text_to_speech(input_language, output_language, text):
         translation = translator.translate(text, src=input_language, dest=output_language)
         trans_text = translation.text
         tts = gTTS(trans_text, lang=output_language, slow=False)
-        tts.save("translationresult.mp3")
+#        trans_txt_tts_file_name = str(uuid.uuid4()) + ".mp3"
+#        tts_file_name = str(uuid.uuid4()) + ".mp3"
+#        tts.save("translationresult.mp3")
+        tts_audio_file=tts.save(tts_file_name)        
         return trans_text
 
 in_lang = st.selectbox("请选择您输入语音的语言", ("Chinese", "English", "German", "French", "Japanese", "Korean"), key="input_lang")
@@ -100,8 +106,7 @@ elif in_lang == "Korean":
 
 st.write("点击下方按钮输入语音（5秒无输入则自动停止）")
 audio = audio_recorder(text="红色图标录音中，黑色停止", pause_threshold=5)
-import uuid
-file_name = str(uuid.uuid4()) + ".mp3"
+
 st.write("---")
 audio_listen_cbox = st.checkbox("收听录制的语音", key="audio_cbox")    
 if audio_listen_cbox:
@@ -178,10 +183,17 @@ if ai_response_audio:
   elif out_lang == "Korea":
     output_language = "kr"
   if final_ai_response =="" or final_ai_response.strip().isspace() or final_ai_response == "" or final_ai_response.strip() == ""  or final_ai_response.isspace():
-         print("No AI Response Yet.")
-         st.write("请确认您已经向AI助手提问并获得回复。")
+    print("No AI Response Yet.")
+    st.write("请确认您已经向AI助手提问并获得回复。")
   else:
-        output_text = text_to_speech(input_language, output_language, final_ai_response)
-        audio_file = open("translationresult.mp3", "rb")
-        audio_bytes = audio_file.read()
-        st.audio(audio_bytes, format="audio/mpeg")
+    if output_language=input_language
+#      tts_file_name = str(uuid.uuid4()) + ".mp3"
+      tts = gTTS(final_ai_response, lang=output_language, slow=False)
+      tts_audio_file = tts.save(tts_file_name)
+      audio_bytes = tts_audio_file.read()
+      st.audio(audio_bytes, format="audio/mpeg")
+    else:
+      output_text = text_to_speech(input_language, output_language, final_ai_response)
+#      audio_file = open(tts_file_name, "rb")
+      audio_bytes = tts_audio_file.read()
+      st.audio(audio_bytes, format="audio/mpeg")
