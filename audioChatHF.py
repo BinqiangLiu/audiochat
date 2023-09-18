@@ -176,6 +176,7 @@ if ai_response_audio:
     output_language = "kr"
   if final_ai_response =="" or final_ai_response.strip().isspace() or final_ai_response == "" or final_ai_response.strip() == ""  or final_ai_response.isspace():
          print("No AI Response Yet.")
+         st.write("请确认您已经向AI助手提问并获得回复。")
   else:
         output_text = text_to_speech(input_language, output_language, final_ai_response)
         audio_file = open("translationresult.mp3", "rb")
