@@ -4,7 +4,7 @@
 #使用Audio record streamlit（https://pypi.org/project/audio-recorder-streamlit/）（https://github.com/Joooohan/audio-recorder-streamlit）录音
 #使用SpeechRecognition 3.10.0（https://pypi.org/project/SpeechRecognition/）将录音转文字
 import streamlit as st
-#import subprocess
+import subprocess
 #import openai
 import numpy as np
 from audio_recorder_streamlit import audio_recorder
@@ -41,6 +41,15 @@ audio_file.write(audio)
 # 关闭audiorecorded.mp3（文件已经存好）
 audio_file.close()
 st.write("---")
+
+# To save audio to a file:/可以视为是临时文件，用于语音转文本用
+#Open file "audiorecorded.mp3" in binary write mode
+        audio_file = open("audiorecorded.mp3", "wb")
+# 通过write方法，将麦克风录制的音频audio保存到audiorecorded.mp3中
+        audio_file.write(audio)
+# 关闭audiorecorded.mp3
+        audio_file.close()
+
 
 audio_listen_cbox = st.checkbox("收听录制的语音", key="audio_listen_cbox")    
 if audio_listen_cbox:
