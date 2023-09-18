@@ -159,7 +159,7 @@ st.write("---")
 
 ai_response_audio = st.checkbox("语音播放AI助手回复", key="ai_audio_cbox")   
 if ai_response_audio:
-  out_lang = st.selectbox("请选择希望用来听AI回复的语言", ("English", "Chinese", "German", "French", "Japanese", "Korean", key="output_lang")
+  out_lang = st.selectbox("请选择希望用来听AI回复的语言", ("English", "Chinese", "German", "French", "Japanese", "Korean"), key="output_lang")
   if out_lang == "English":
     output_language = "en"
   elif out_lang == "Chinese":
