@@ -70,10 +70,7 @@ def text_to_speech(input_language, output_language, text):
         tts.save("translationresult.mp3")
         return trans_text
 
-in_lang = st.selectbox(
-    "请选择您输入语音的语言",
-    ("Chinese", "English", "German", "French", "Japanese", "Korean"),
-)
+in_lang = st.selectbox("请选择您输入语音的语言", ("Chinese", "English", "German", "French", "Japanese", "Korean"), key="input_lang")
 if in_lang == "Chinese":
      input_language = "zh-CN"
 #elif in_lang == "Chinese Traditional":
@@ -159,10 +156,7 @@ if ai_response_cbox:
 #        st.stop()
 
 st.write("---")
-out_lang = st.selectbox(
-    "请选择希望用来听AI回复的语言",
-    ("English", "Chinese", "German", "French", "Japanese", "Korean"),
-)
+out_lang = st.selectbox("请选择希望用来听AI回复的语言", ("English", "Chinese", "German", "French", "Japanese", "Korean"), key="output_lang")
 if out_lang == "English":
     output_language = "en"
 elif out_lang == "Chinese":
