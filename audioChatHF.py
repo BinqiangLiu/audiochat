@@ -126,14 +126,18 @@ if audio!=None:
              recognizer.recognize_google(audio_data=audio_file)  
              audio_txt_result = recognizer.recognize_google(audio_data=audio_file, language=input_language )             
          except Exception as e:
-             st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
+#             st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
+             print("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
 #             st.stop()
 
 if audio_listen_cbox:
    if audio is None:
-       st.write("未检测到语音，请您先录入语音以向AI助手提问。")
+     st.write("未检测到语音，请您先录入语音以向AI助手提问。")
    else:
-       st.audio(audio, format="audio/mpeg") 
+     try:
+       st.audio(audio, format="audio/mpeg")            
+     except Exception as e:
+       st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
 
 st.write("---")
 audio_txt_cbox = st.checkbox("查看语音转文字", key="audio_txt_cbox")  
