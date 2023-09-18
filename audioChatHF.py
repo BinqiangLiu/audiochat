@@ -75,6 +75,6 @@ with audio_file as source:
   recognizer.recognize_google(audio_data=audio_file)
   print(type(audio_file))
   st.write(type(audio_file))
-  result = recognizer.recognize_google(audio_data=audio_file)
+  result = recognizer.recognize_google(audio_data=audio_file, language='zh-CN')    
   print(result)
   st.write(result)
