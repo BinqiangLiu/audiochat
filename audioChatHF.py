@@ -120,7 +120,7 @@ if audio_listen_cbox:
              st.stop()    
    else:
         #st.write("No audio recorded. Please record your audio first.")
-       st.write("未检测到语音。请您先录入语音以向AI助手提问。")
+       st.write("未检测到语音，请您先录入语音以向AI助手提问。")
        st.stop()  
 #st.audio("audiorecorded.mp3", format="audio/mpeg")
 #st.audio(audio_bytes, format="audio/mpeg")
@@ -137,5 +137,5 @@ if ai_response_cbox:
         st.write("AI Response:")
         st.write(final_ai_response)
     else:        
-        st.write("发生了未知错误。")
+        st.write("发生了错误。请确保您按照选择的语言正确输入了语音！")
         st.stop()
