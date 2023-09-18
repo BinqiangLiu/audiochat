@@ -112,46 +112,32 @@ st.write("点击下方按钮输入语音（5秒无输入则自动停止）")
 audio = audio_recorder(text="红色图标录音中，黑色停止", pause_threshold=5)
 
 st.write("---")
-audio_listen_cbox = st.checkbox("收听录制的语音", key="audio_cbox")    
-if audio_listen_cbox:
-   if audio!=None:
-        # To play audio in frontend:
-        #st.write("↓↓↓播放您输入的语音！")
-       #st.audio(audio, format="audio/mpeg") 
-        # To save audio to a file:/可以视为是临时文件，用于语音转文本用
-        #Open file "audiorecorded.mp3" in binary write mode
-#       audio_file = open("audiorecorded.mp3", "wb")
-       audio_file = open(file_name, "wb")
-        # 通过write方法，将麦克风录制的音频audio保存到audiorecorded.mp3中
-       audio_file.write(audio)
-        # 关闭audiorecorded.mp3（文件已经存好）
-       audio_file.close()
-       
-       #使用SpeechRecognition将录音转文字
-       recognizer = sr.Recognizer()
-       audio_file = sr.AudioFile(file_name)
-       #st.write(type(audio_file))
-       
-       with audio_file as source:
-         audio_file = recognizer.record(source)
-       #  audio_file = recognizer.record(source, duration = 5.0)
-       #  audio_file = recognizer.record(source, offset = 1.0)
+audio_listen_cbox = st.checkbox("收听录制的语音", key="audio_cbox")  
+st.write("---")
+audio_txt_cbox = st.checkbox("查看语音转文字", key="audio_txt_cbox")  
+                 
+if audio!=None:
+    audio_file = open(file_name, "wb")
+    audio_file.write(audio)
+    audio_file.close()
+    recognizer = sr.Recognizer()
+    audio_file = sr.AudioFile(file_name)       
+    with audio_file as source:
+         audio_file = recognizer.record(source)     
          try:
-             recognizer.recognize_google(audio_data=audio_file)
-             st.audio(audio, format="audio/mpeg") 
-             #st.write(type(audio_file))
-             with st.spinner("Recognizing your audio...Please wait a while to Cheers!"):                  
-               audio_txt_result = recognizer.recognize_google(audio_data=audio_file, language=input_language )
-               st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n\n"+audio_txt_result)
-#               st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n\n"+audio_txt_result)
-#             st.write("---")       
+             recognizer.recognize_google(audio_data=audio_file)  
+             audio_txt_result = recognizer.recognize_google(audio_data=audio_file, language=input_language )             
          except Exception as e:
              st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
+             st.stop()
    else:
-        #st.write("No audio recorded. Please record your audio first.")
        st.write("未检测到语音，请您先录入语音以向AI助手提问。")
-#st.audio("audiorecorded.mp3", format="audio/mpeg")
-#st.audio(audio_bytes, format="audio/mpeg")
+       st.stop()
+
+if audio_listen_cbox:
+    st.audio(audio, format="audio/mpeg") 
+if audio_txt_cbox:    
+    st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n\n"+audio_txt_result)        
 
 st.write("---")
 ai_response_cbox = st.checkbox("查看AI助手回复", key="ai_cbox")    
