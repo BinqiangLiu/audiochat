@@ -40,6 +40,7 @@ user_query=""
 
 HUGGINGFACEHUB_API_TOKEN = os.getenv('HUGGINGFACEHUB_API_TOKEN')
 repo_id = os.environ.get('repo_id')
+#repo_id=os.getenv("repo_id")
 #openai.api_key = os.getenv("OPENAI_API_KEY")
 
 llm = HuggingFaceHub(repo_id=repo_id,
