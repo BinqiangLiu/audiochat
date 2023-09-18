@@ -67,13 +67,13 @@ if audio_listen_cbox:
        audio_file.write(audio)
         # 关闭audiorecorded.mp3（文件已经存好）
        audio_file.close()
-       st.write("---")
+#       st.write("---")
        
        #使用SpeechRecognition将录音转文字
        recognizer = sr.Recognizer()
        audio_file = sr.AudioFile("audiorecorded.mp3")
        #st.write(type(audio_file))
-       st.write("---")
+#       st.write("---")
        
        with audio_file as source:
          audio_file = recognizer.record(source)
@@ -85,8 +85,8 @@ if audio_listen_cbox:
              #st.write(type(audio_file))
              st.write("Recognizing your audio...wait a while to cheers!")
              result = recognizer.recognize_google(audio_data=audio_file, language=input_language )
-             st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n"+result)
-             st.write("---")       
+             st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n\n"+result)
+#             st.write("---")       
          except Exception as e:
              st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
              st.stop()    
