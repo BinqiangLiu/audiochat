@@ -21,6 +21,11 @@ from langchain.memory import ConversationBufferMemory
 from langchain.memory.chat_message_histories import StreamlitChatMessageHistory
 from streamlit.components.v1 import html
 from langchain import HuggingFaceHub
+import time
+import glob
+import sys
+from googletrans import Translator
+
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -60,6 +65,7 @@ Helpufl AI AI Repsonse:
 """  
 llm_chain = LLMChain(llm=llm, prompt=PromptTemplate.from_template(prompt_template))
 
+translator = Translator()
 def text_to_speech(input_language, output_language, text):
     if text is None:
         print("Input empty.")        
@@ -132,14 +138,13 @@ if audio_listen_cbox:
 #             st.write("---")       
          except Exception as e:
              st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
-#             st.stop()    
    else:
         #st.write("No audio recorded. Please record your audio first.")
        st.write("未检测到语音，请您先录入语音以向AI助手提问。")
-#       st.stop()  
 #st.audio("audiorecorded.mp3", format="audio/mpeg")
 #st.audio(audio_bytes, format="audio/mpeg")
 
+st.write("---")
 ai_response_cbox = st.checkbox("查看AI助手回复", key="ai_cbox")    
 if ai_response_cbox:
     user_query = audio_txt_result   
@@ -153,10 +158,8 @@ if ai_response_cbox:
         st.write(final_ai_response)
     else:        
         st.write("AI助手遇到了错误。请确保您按照选择的语言正确输入了语音！")
-#        st.stop()
 
 st.write("---")
-
 ai_response_audio = st.checkbox("语音播放AI助手回复", key="ai_audio_cbox")   
 if ai_response_audio:
   out_lang = st.selectbox("请选择希望用来听AI回复的语言", ("English", "Chinese", "German", "French", "Japanese", "Korean"), key="output_lang")
