@@ -56,8 +56,6 @@ Helpufl AI AI Repsonse:
 """  
 llm_chain = LLMChain(llm=llm, prompt=PromptTemplate.from_template(prompt_template))
 
-
-
 in_lang = st.selectbox(
     "请选择您输入语音的语言",
     ("Chinese", "English", "German", "French", "Japanese", "Korean"),
@@ -81,12 +79,10 @@ elif in_lang == "Korean":
 #conversation = [{"role": "system", "content": "You are a helpful assistant."}]
 
 #st.title("语音AI随身聊")
-#st.write("---")
 #st.header("请用语音向AI智能助手提问！")
 st.write("---")
 st.write("点击下方按钮输入语音（5秒无输入则自动停止）")
 audio = audio_recorder(text="红色图标录音中，黑色停止", pause_threshold=5)
-#st.write("---")
 
 audio_listen_cbox = st.checkbox("收听录制的语音", key="audio_cbox")    
 if audio_listen_cbox:
@@ -101,13 +97,11 @@ if audio_listen_cbox:
        audio_file.write(audio)
         # 关闭audiorecorded.mp3（文件已经存好）
        audio_file.close()
-#       st.write("---")
        
        #使用SpeechRecognition将录音转文字
        recognizer = sr.Recognizer()
        audio_file = sr.AudioFile("audiorecorded.mp3")
        #st.write(type(audio_file))
-#       st.write("---")
        
        with audio_file as source:
          audio_file = recognizer.record(source)
@@ -128,11 +122,10 @@ if audio_listen_cbox:
         #st.write("No audio recorded. Please record your audio first.")
        st.write("未检测到语音。请您先录入语音以向AI助手提问。")
        st.stop()  
-#完美播放录制的音频！
 #st.audio("audiorecorded.mp3", format="audio/mpeg")
 #st.audio(audio_bytes, format="audio/mpeg")
 
-ai_response_cbox = st.checkbox("查看AI助手回复：", key="ai_cbox")    
+ai_response_cbox = st.checkbox("查看AI助手回复", key="ai_cbox")    
 if ai_response_cbox:
   user_query = audio_txt_result
   with st.spinner("AI Thinking...Please wait a while to Cheers!"):    
@@ -145,4 +138,4 @@ if ai_response_cbox:
         st.write(final_ai_response)
     else:        
         st.write("发生了未知错误。")
-        st.stop()     
+        st.stop()
