@@ -35,11 +35,11 @@ st.write("点击下方按钮输入语音（5秒无输入则自动停止）")
 audio = audio_recorder(text="红色图标录音中，黑色停止", pause_threshold=5)
 # To save audio to a file:/可以视为是临时文件，用于语音转文本用
 #Open file "audiorecorded.mp3" in binary write mode
-        audio_file = open("audiorecorded.mp3", "wb")
+audio_file = open("audiorecorded.mp3", "wb")
 # 通过write方法，将麦克风录制的音频audio保存到audiorecorded.mp3中
-        audio_file.write(audio)
+audio_file.write(audio)
 # 关闭audiorecorded.mp3（文件已经存好）
-        audio_file.close()
+audio_file.close()
 st.write("---")
 
 audio_listen_cbox = st.checkbox("收听录制的语音", key="audio_listen_cbox")    
