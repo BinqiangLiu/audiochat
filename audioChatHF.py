@@ -177,15 +177,19 @@ if ai_response_audio:
     print("No AI Response Yet.")
     st.write("请确认您已经向AI助手提问并获得回复。")
   else:
-    if output_language==input_language:
-      tts_file_name = str(uuid.uuid4()) + ".mp3"
-      tts = gTTS(final_ai_response, lang=output_language, slow=False)
-      tts.save(tts_file_name)
-#      st.audio(audio, format="audio/mpeg") 
-#      audio_bytes = tts_audio_file.read()
-      st.audio(tts_file_name, format="audio/mpeg")
-    else:
-      output_text = text_to_speech(input_language, output_language, final_ai_response)
-#      audio_file = open(tts_file_name, "rb")
-#      audio_bytes = tts_audio_file.read()
-#      st.audio(audio_bytes, format="audio/mpeg")
+    in_lang_1 = st.selectbox("请选择您输入语音的语言", ("Chinese", "English", "German", "French", "Japanese", "Korean"), key="input_lang_1")
+    if in_lang_1 == "Chinese":
+        input_language_1 = "zh-CN"
+#elif in_lang == "Chinese Traditional":
+#    input_language = "zh-TW"
+    elif in_lang_1 == "English":
+        input_language_1 = "en"
+    elif in_lang_1 == "German":
+        input_language_1 = "de"
+    elif in_lang_1 == "French":
+        input_language_1 = "fr"
+    elif in_lang_1 == "Japanese":
+        input_language_1 = "ja"
+    elif in_lang_1 == "Korean":
+        input_language_1 = "kr"
+    output_text = text_to_speech(input_language_1, output_language, final_ai_response)
