@@ -60,7 +60,7 @@ if audio_listen_cbox:
    if audio!=None:
         # To play audio in frontend:
         #st.write("↓↓↓播放您输入的语音！")
-       st.audio(audio, format="audio/mpeg") 
+       #st.audio(audio, format="audio/mpeg") 
         # To save audio to a file:/可以视为是临时文件，用于语音转文本用
         #Open file "audiorecorded.mp3" in binary write mode
        audio_file = open("audiorecorded.mp3", "wb")
@@ -70,11 +70,10 @@ if audio_listen_cbox:
        audio_file.close()
        st.write("---")
        
-       st.write("Recognizing your audio...wait a while to cheers!")
        #使用SpeechRecognition将录音转文字
        recognizer = sr.Recognizer()
        audio_file = sr.AudioFile("audiorecorded.mp3")
-       st.write(type(audio_file))
+       #st.write(type(audio_file))
        st.write("---")
        
        with audio_file as source:
@@ -83,7 +82,9 @@ if audio_listen_cbox:
        #  audio_file = recognizer.record(source, offset = 1.0)
          try:
              recognizer.recognize_google(audio_data=audio_file)
-             st.write(type(audio_file))
+             st.audio(audio, format="audio/mpeg") 
+             #st.write(type(audio_file))
+             st.write("Recognizing your audio...wait a while to cheers!")
              result = recognizer.recognize_google(audio_data=audio_file, language=input_language )
              st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n"+result)
              st.write("---")       
