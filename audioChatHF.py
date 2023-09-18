@@ -137,5 +137,5 @@ if ai_response_cbox:
         st.write("AI Response:")
         st.write(final_ai_response)
     else:        
-        st.write("发生了错误。请确保您按照选择的语言正确输入了语音！")
+        st.write("AI助手遇到了错误。请确保您按照选择的语言正确输入了语音！")
         st.stop()
