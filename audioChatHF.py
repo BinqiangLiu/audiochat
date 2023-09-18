@@ -27,10 +27,10 @@ st.set_page_config(
 )
 
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+#openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Global variable to hold the chat history, initialize with system role
-conversation = [{"role": "system", "content": "You are a helpful assistant."}]
+#conversation = [{"role": "system", "content": "You are a helpful assistant."}]
 
 st.title("语音AI随身聊")
 st.write("---")
@@ -74,7 +74,3 @@ with audio_file as source:
   print(type(audio_file))
   result = recognizer.recognize_google(audio_data=audio_file)
   print(result)
-
-
-
-
