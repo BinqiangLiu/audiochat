@@ -156,27 +156,10 @@ if ai_response_cbox:
 #        st.stop()
 
 st.write("---")
-out_lang = st.selectbox("请选择希望用来听AI回复的语言", ("English", "Chinese", "German", "French", "Japanese", "Korean"), key="output_lang")
-if out_lang == "English":
-    output_language = "en"
-elif out_lang == "Chinese":
-    output_language = "zh-CN"
-#elif out_lang == "Chinese Traditional":
-#    output_language = "zh-TW"
-elif out_lang == "German":
-    output_language = "de"
-elif out_lang == "French":
-    output_language = "fr"
-elif out_lang == "Japanese":
-    output_language = "ja"
-elif out_lang == "Korea":
-    output_language = "kr"
-
-st.write("---")
 
 ai_response_audio = st.checkbox("语音播放AI助手回复", key="ai_audio_cbox")   
 if ai_response_audio:
-  out_lang = st.selectbox("请选择希望用来听AI回复的语言", ("English", "Chinese", "German", "French", "Japanese", "Korean"),)
+  out_lang = st.selectbox("请选择希望用来听AI回复的语言", ("English", "Chinese", "German", "French", "Japanese", "Korean"), key="output_lang"
   if out_lang == "English":
     output_language = "en"
   elif out_lang == "Chinese":
