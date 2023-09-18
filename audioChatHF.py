@@ -186,7 +186,7 @@ if ai_response_audio:
     print("No AI Response Yet.")
     st.write("请确认您已经向AI助手提问并获得回复。")
   else:
-    if output_language=input_language
+    if output_language=input_language:
 #      tts_file_name = str(uuid.uuid4()) + ".mp3"
       tts = gTTS(final_ai_response, lang=output_language, slow=False)
       tts_audio_file = tts.save(tts_file_name)
