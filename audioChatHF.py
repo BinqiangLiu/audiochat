@@ -117,11 +117,11 @@ if audio_listen_cbox:
 #             st.write("---")       
          except Exception as e:
              st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
-             st.stop()    
+#             st.stop()    
    else:
         #st.write("No audio recorded. Please record your audio first.")
        st.write("未检测到语音，请您先录入语音以向AI助手提问。")
-       st.stop()  
+#       st.stop()  
 #st.audio("audiorecorded.mp3", format="audio/mpeg")
 #st.audio(audio_bytes, format="audio/mpeg")
 
