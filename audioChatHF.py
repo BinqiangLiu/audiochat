@@ -128,8 +128,12 @@ if audio!=None:
          except Exception as e:
              st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
 #             st.stop()
+
 if audio_listen_cbox:
-    st.audio(audio, format="audio/mpeg") 
+   if audio is None:
+       st.write("未检测到语音，请您先录入语音以向AI助手提问。")
+   else:
+       st.audio(audio, format="audio/mpeg") 
 
 st.write("---")
 audio_txt_cbox = st.checkbox("查看语音转文字", key="audio_txt_cbox")  
