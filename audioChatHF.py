@@ -113,8 +113,6 @@ audio = audio_recorder(text="红色图标录音中，黑色停止", pause_thresh
 
 st.write("---")
 audio_listen_cbox = st.checkbox("收听录制的语音", key="audio_cbox")  
-st.write("---")
-audio_txt_cbox = st.checkbox("查看语音转文字", key="audio_txt_cbox")  
                  
 if audio!=None:
     audio_file = open(file_name, "wb")
@@ -131,6 +129,8 @@ if audio!=None:
              st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
 #             st.stop()
 
+st.write("---")
+audio_txt_cbox = st.checkbox("查看语音转文字", key="audio_txt_cbox")  
 if audio_listen_cbox:
     st.audio(audio, format="audio/mpeg") 
 if audio_txt_cbox:    
