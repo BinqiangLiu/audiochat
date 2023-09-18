@@ -177,7 +177,7 @@ if ai_response_audio:
     print("No AI Response Yet.")
     st.write("请确认您已经向AI助手提问并获得回复。")
   else:
-    in_lang_1 = st.selectbox("请选择您输入语音的语言", ("Chinese", "English", "German", "French", "Japanese", "Korean"), key="input_lang_1")
+    in_lang_1 = st.selectbox("请确认AI助手输出内容的语言", ("Chinese", "English", "German", "French", "Japanese", "Korean"), key="input_lang_1")
     if in_lang_1 == "Chinese":
         input_language_1 = "zh-CN"
 #elif in_lang == "Chinese Traditional":
