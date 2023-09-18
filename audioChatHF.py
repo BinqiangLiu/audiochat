@@ -3,18 +3,27 @@
 #python version: 3.10.11
 #使用Audio record streamlit（https://pypi.org/project/audio-recorder-streamlit/）（https://github.com/Joooohan/audio-recorder-streamlit）录音
 #使用SpeechRecognition 3.10.0（https://pypi.org/project/SpeechRecognition/）将录音转文字
-import streamlit as st
 #import subprocess
 #import openai
+#from langdetect import detect
+import streamlit as st
 import numpy as np
 from audio_recorder_streamlit import audio_recorder
 import speech_recognition as sr
 import ffmpeg
-#from langdetect import detect
 from gtts import gTTS
-# Load environment variables
-from dotenv import load_dotenv
+from langchain import PromptTemplate, LLMChain
+from langchain.memory import StreamlitChatMessageHistory
+from streamlit_chat import message
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+from langchain.memory import ConversationBufferMemory
+from langchain.memory.chat_message_histories import StreamlitChatMessageHistory
+from streamlit.components.v1 import html
+from langchain import HuggingFaceHub
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 st.set_page_config(
     page_title="语音AI随身聊 - 您的随身智能语音助手",
@@ -22,8 +31,31 @@ st.set_page_config(
     layout="wide",  # You can set the layout to "wide" or "centered"
 )
 
-load_dotenv()
+css_file = "main.css"
+with open(css_file) as f:
+    st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
+
+audio_txt_result=""
+user_query=""
+
+HUGGINGFACEHUB_API_TOKEN = os.getenv('HUGGINGFACEHUB_API_TOKEN')
+repo_id = os.environ.get('repo_id')
 #openai.api_key = os.getenv("OPENAI_API_KEY")
+
+llm = HuggingFaceHub(repo_id=repo_id,
+                     model_kwargs={"min_length":100,
+                                   "max_new_tokens":1024, "do_sample":True,
+                                   "temperature":0.1,
+                                   "top_k":50,
+                                   "top_p":0.95, "eos_token_id":49155})
+
+prompt_template = """You are a very helpful AI assistant. Please response to the user's input question with as many details as possible.
+Question: {user_question}
+Helpufl AI AI Repsonse:
+"""  
+llm_chain = LLMChain(llm=llm, prompt=PromptTemplate.from_template(prompt_template))
+
+
 
 in_lang = st.selectbox(
     "请选择您输入语音的语言",
@@ -50,9 +82,10 @@ elif in_lang == "Korean":
 #st.title("语音AI随身聊")
 #st.write("---")
 #st.header("请用语音向AI智能助手提问！")
+st.write("---")
 st.write("点击下方按钮输入语音（5秒无输入则自动停止）")
 audio = audio_recorder(text="红色图标录音中，黑色停止", pause_threshold=5)
-st.write("---")
+#st.write("---")
 
 audio_listen_cbox = st.checkbox("收听录制的语音", key="audio_cbox")    
 if audio_listen_cbox:
@@ -84,8 +117,8 @@ if audio_listen_cbox:
              st.audio(audio, format="audio/mpeg") 
              #st.write(type(audio_file))
              st.write("Recognizing your audio...wait a while to cheers!")
-             result = recognizer.recognize_google(audio_data=audio_file, language=input_language )
-             st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n\n"+result)
+             audio_txt_result = recognizer.recognize_google(audio_data=audio_file, language=input_language )
+             st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n\n"+audio_txt_result)
 #             st.write("---")       
          except Exception as e:
              st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
@@ -97,3 +130,18 @@ if audio_listen_cbox:
 #完美播放录制的音频！
 #st.audio("audiorecorded.mp3", format="audio/mpeg")
 #st.audio(audio_bytes, format="audio/mpeg")
+
+ai_response_cbox = st.checkbox("查看AI助手回复：", key="ai_cbox")    
+if ai_response_cbox:
+  user_query = audio_txt_result
+  with st.spinner("AI Thinking...Please wait a while to Cheers!"):    
+    if user_query !="" and not user_query.strip().isspace() and not user_query == "" and not user_query.strip() == "" and not user_query.isspace():         
+        initial_response=llm_chain.run(user_query)
+        temp_ai_response_1=initial_response.partition('<|end|>\n<|user|>\n')[0]
+        temp_ai_response_2=temp_ai_response_1.replace('<|end|>\n<|assistant|>\n', '') 
+        final_ai_response=temp_ai_response_2.replace('<|end|>\n<|system|>\n', '')         
+        st.write("AI Response:")
+        st.write(final_ai_response)
+    else:        
+        st.write("发生了未知错误。")
+        st.stop()     
