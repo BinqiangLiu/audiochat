@@ -52,6 +52,7 @@ except Exception as e:
     st.write("请先向AI输入语音提问！")  
     st.stop()
 
+#完美播放录制的音频！
 st.audio("audiorecorded.mp3", format="audio/mpeg")
 #st.audio(audio_bytes, format="audio/mpeg")
 
