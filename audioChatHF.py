@@ -31,6 +31,9 @@ st.set_page_config(
     layout="wide",  # You can set the layout to "wide" or "centered"
 )
 
+st.title(":rocket:"+"语音AI随身聊 - 您的随身智能语音助手！")
+#st.header("请用语音向AI智能助手提问！")
+
 css_file = "main.css"
 with open(css_file) as f:
     st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
