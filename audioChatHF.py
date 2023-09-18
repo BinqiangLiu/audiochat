@@ -28,45 +28,60 @@ load_dotenv()
 # Global variable to hold the chat history, initialize with system role
 #conversation = [{"role": "system", "content": "You are a helpful assistant."}]
 
-st.title("语音AI随身聊")
-st.write("---")
-st.header("请用语音向AI智能助手提问！")
+#st.title("语音AI随身聊")
+#st.write("---")
+#st.header("请用语音向AI智能助手提问！")
 st.write("点击下方按钮输入语音（5秒无输入则自动停止）")
-#audio = audio_recorder(text="红色图标录音中，\n\n黑色停止", pause_threshold=5)
-audio = audio_recorder(text = '''
-红色图标录音中，
-黑色停止
-''', pause_threshold=5)
-st.write("---")
-
-try:
-    if len(audio) > 0:
-        # To play audio in frontend:
-        st.write("↓↓↓播放您输入的语音！")
-        st.audio(audio)    
+audio = audio_recorder(text="红色图标录音中，黑色停止", pause_threshold=5)
 # To save audio to a file:/可以视为是临时文件，用于语音转文本用
 #Open file "audiorecorded.mp3" in binary write mode
         audio_file = open("audiorecorded.mp3", "wb")
 # 通过write方法，将麦克风录制的音频audio保存到audiorecorded.mp3中
         audio_file.write(audio)
-# 关闭audiorecorded.mp3
+# 关闭audiorecorded.mp3（文件已经存好）
         audio_file.close()
-except Exception as e:
-    # 否则报错Handle the error, e.g., print an error message or return a default text
-    print(f"Translation error: {e}")    
-    st.write("请先向AI输入语音提问！")  
-    st.stop()
+st.write("---")
+
+audio_listen_cbox = st.checkbox("收听录制的语音", key="audio_listen_cbox")    
+if audio_listen_cbox:
+    if len(audio) > 0:
+        # To play audio in frontend:
+        #st.write("↓↓↓播放您输入的语音！")
+        st.audio(audio, format="audio/mpeg") 
+    else:
+        #st.write("No audio recorded. Please record your audio first.")
+        st.write("未检测到语音。请您先录入语音以向AI助手提问。")
+        st.stop()  
 
 #完美播放录制的音频！
-st.audio("audiorecorded.mp3", format="audio/mpeg")
+#st.audio("audiorecorded.mp3", format="audio/mpeg")
 #st.audio(audio_bytes, format="audio/mpeg")
 
-st.write("Now move to the SpeechRecognition part")
+in_lang = st.selectbox(
+    "请选择您输入语音的语言",
+    ("Chinese", "English", "German", "French", "Japanese", "Korean"),
+)
+if in_lang == "Chinese":
+     input_language = "zh-CN"
+#elif in_lang == "Chinese Traditional":
+#    input_language = "zh-TW"
+elif in_lang == "English":
+    input_language = "en"
+elif in_lang == "German":
+    input_language = "de"
+elif in_lang == "French":
+    input_language = "fr"
+elif in_lang == "Japanese":
+    input_language = "ja"
+elif in_lang == "Korean":
+    input_language = "kr"
+
+st.write("Recognizing your audio...wait a while to cheers!")
 #使用SpeechRecognition将录音转文字
 recognizer = sr.Recognizer()
 audio_file = sr.AudioFile("audiorecorded.mp3")
-print(type(audio_file))
 st.write(type(audio_file))
+st.write("---")
 
 with audio_file as source:
   audio_file = recognizer.record(source)
@@ -75,6 +90,6 @@ with audio_file as source:
   recognizer.recognize_google(audio_data=audio_file)
   print(type(audio_file))
   st.write(type(audio_file))
-  result = recognizer.recognize_google(audio_data=audio_file, language='zh-CN')    
-  print(result)
-  st.write(result)
+  result = recognizer.recognize_google(audio_data=audio_file, language=input_language )      
+  st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n"+result)
+st.write("---")
