@@ -57,7 +57,7 @@ st.write("---")
 
 audio_listen_cbox = st.checkbox("收听录制的语音", key="audio_cbox")    
 if audio_listen_cbox:
-   if len(audio) > 0:
+   if audio!=None:
         # To play audio in frontend:
         #st.write("↓↓↓播放您输入的语音！")
        st.audio(audio, format="audio/mpeg") 
