@@ -112,8 +112,8 @@ if audio_listen_cbox:
              st.audio(audio, format="audio/mpeg") 
              #st.write(type(audio_file))
              with st.spinner("Recognizing your audio...Please wait a while to Cheers!", key="audio_txt_spinner"):                  
-             audio_txt_result = recognizer.recognize_google(audio_data=audio_file, language=input_language )
-             st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n\n"+audio_txt_result)
+               audio_txt_result = recognizer.recognize_google(audio_data=audio_file, language=input_language )
+               st.write("基于您的输入语言"+input_language+"，识别您的输入为：\n\n"+audio_txt_result)
 #             st.write("---")       
          except Exception as e:
              st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
