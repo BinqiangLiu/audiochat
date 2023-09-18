@@ -130,7 +130,7 @@ if audio!=None:
          except Exception as e:
              st.write("检测到语音输入问题（请确保您按照选择的语言正确输入了语音）！")
              st.stop()
-   else:
+else:
        st.write("未检测到语音，请您先录入语音以向AI助手提问。")
        st.stop()
 
