@@ -78,8 +78,12 @@ def text_to_speech(input_language, output_language, text):
         tts = gTTS(trans_text, lang=output_language, slow=False)
 #        trans_txt_tts_file_name = str(uuid.uuid4()) + ".mp3"
         tts_file_name = str(uuid.uuid4()) + ".mp3"
-#        tts.save("translationresult.mp3")
-        tts_audio_file=tts.save(tts_file_name)        
+        tts.save(tts_file_name)                      
+#      st.audio(audio, format="audio/mpeg") 
+#      audio_bytes = tts_audio_file.read()
+        st.audio(tts_file_name, format="audio/mpeg")
+#        tts.save("translationresult.mp3")        
+#        tts_audio_file=tts.save(tts_file_name)        
         return trans_text
 
 in_lang = st.selectbox("请选择您输入语音的语言", ("Chinese", "English", "German", "French", "Japanese", "Korean"), key="input_lang")
@@ -189,12 +193,12 @@ if ai_response_audio:
     if output_language==input_language:
       tts_file_name = str(uuid.uuid4()) + ".mp3"
       tts = gTTS(final_ai_response, lang=output_language, slow=False)
-      tts_audio_file = tts.save(tts_file_name)
+      tts.save(tts_file_name)
 #      st.audio(audio, format="audio/mpeg") 
-      audio_bytes = tts_audio_file.read()
-      st.audio(audio_bytes, format="audio/mpeg")
+#      audio_bytes = tts_audio_file.read()
+      st.audio(tts_file_name, format="audio/mpeg")
     else:
       output_text = text_to_speech(input_language, output_language, final_ai_response)
 #      audio_file = open(tts_file_name, "rb")
-      audio_bytes = tts_audio_file.read()
-      st.audio(audio_bytes, format="audio/mpeg")
+#      audio_bytes = tts_audio_file.read()
+#      st.audio(audio_bytes, format="audio/mpeg")
