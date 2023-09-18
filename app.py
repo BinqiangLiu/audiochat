@@ -52,6 +52,9 @@ except Exception as e:
     st.write("请先向AI输入语音提问！")  
     st.stop()
 
+st.audio("audiorecorded.mp3", format="audio/mpeg")
+#st.audio(audio_bytes, format="audio/mpeg")
+
 with open("audiorecorded.mp3", "rb") as sst_audio_file:
     transcript = openai.Audio.transcribe(
         file = sst_audio_file,
