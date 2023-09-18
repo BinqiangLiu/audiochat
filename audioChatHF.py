@@ -10,6 +10,7 @@ import subprocess
 import openai
 import numpy as np
 from audio_recorder_streamlit import audio_recorder
+import speech_recognition as sr
 import numpy as np
 import ffmpeg
 from langdetect import detect
@@ -60,6 +61,23 @@ except Exception as e:
 st.audio("audiorecorded.mp3", format="audio/mpeg")
 #st.audio(audio_bytes, format="audio/mpeg")
 
+#使用SpeechRecognition将录音转文字
+recognizer = sr.Recognizer()
+audio_file_ = sr.AudioFile("audiorecorded.mp3")
+print(type(audio_file))
+
+with audio_file as source:
+  audio_file = recognizer.record(source)
+#  audio_file = recognizer.record(source, duration = 5.0)
+#  audio_file = recognizer.record(source, offset = 1.0)
+  recognizer.recognize_google(audio_data=audio_file)
+  print(type(audio_file))
+  result = recognizer.recognize_google(audio_data=audio_file)
+  print(result)
+
+
+
+#使用Whisper将录音转文字
 with open("audiorecorded.mp3", "rb") as sst_audio_file:
     transcript = openai.Audio.transcribe(
         file = sst_audio_file,
